@@ -13,18 +13,6 @@ target(num, 0);
 target(num, 3);
 
 //Hard
-// var button = document.getElementById('myButton');
-
-// button.addEventListener('click', function(){
-//     if (button.classList.contains('red')) {
-//         button.classList.remove('red');
-//         button.classList.add('grey');
-//     } else {
-//         button.classList.remove('grey');
-//         button.classList.add('red');
-//     }
-// });
-
 let changeColor = (color) => {
     document.body.style.background = color;
 }
@@ -36,3 +24,20 @@ let white = () => {
 }
 
 // Very Hard
+var coinChange = function(coins, amount) {
+    const table = new Array(amount + 1).fill(Infinity);
+    table[0] = 0;
+
+    for(let coin of coins) {
+        for(let i = 0; i < table.length; i++) {
+            if(coin <= i) {
+                let idx = i - coin;
+                let potentialAmt = table[idx] + 1;
+                table[i] = Math.min(potentialAmt, table[i]);
+            }
+        }
+    }
+    return table[table.length - 1] === Infinity ? -1 : table[table.length - 1];
+};
+
+console.log(coinChange([1,2,5], 11));
